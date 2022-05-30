@@ -1,0 +1,11 @@
+.image-load {
+    background-color: white;
+    position: relative;
+    height: 250px;
+}
+
+.selected-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

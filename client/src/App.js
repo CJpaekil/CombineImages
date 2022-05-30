@@ -6,7 +6,7 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
-      <div>
+      <div style={{ backgroundColor: "wheat", height: "100vh", padding: "30px" }}>
         <Routes location={location}>
           <Route path="/" element={<Home />}></Route>
         </Routes>
