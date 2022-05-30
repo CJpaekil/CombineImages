@@ -15,11 +15,11 @@ const FrameModal = ({ open, onClose, selectedFrame }) => {
             centered
         >
             <Modal.Body>
-                <div style={{ textAlign: "center" }}>Choose Frame</div>
+                <div style={{ textAlign: "center", fontSize: "20px" }}>Choose Frame</div>
                 <div className="row">
                     {
                         framepaths.map((item, index) => (
-                            <img className="col-sm-4 col-12" src={item} key={index} onClick={() => selectFrame({ item })} width="100%" height="auto" />
+                            <img className="col-sm-4 col-12" src={item} key={index} onClick={() => selectFrame({ item })} alt="" width="100%" height="auto" />
                         ))
                     }
                 </div>
