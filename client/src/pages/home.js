@@ -3,8 +3,14 @@ import FrameModal from "../component/FrameModal";
 import SelfieModal from "../component/SelfieModal";
 import SelfieResizeDrag from "../component/SelfieResize";
 import { exportComponentAsJPEG, exportComponentAsPDF, exportComponentAsPNG } from 'react-component-export-image';
-import React, { useRef } from 'react';
-
+import React from 'react';
+/**
+ * props variable:
+ *      selframe - This is selected frame file path
+ *      selfie   - This is selected selfie file path
+ *      bgimg    - This is background image file path
+ * This class is implemented to export as a image file for Merge image section.
+ */
 class ComponentToPrint extends React.Component {
   constructor(props) {
     super(props);
@@ -20,8 +26,10 @@ class ComponentToPrint extends React.Component {
     );
   }
 }
-
-class MyComponent extends React.Component {
+/**
+ * This class implemented to export as a image whenever click export buttons(JPG, PNG, PDF)
+ */
+class ExportComponent extends React.Component {
   constructor(props) {
     super(props);
     this.componentRef = React.createRef();
@@ -31,30 +39,41 @@ class MyComponent extends React.Component {
     return (
       <React.Fragment>
         <ComponentToPrint bgimg={this.props.bgimg} selframe={this.props.selframe} selfie={this.props.selfie} ref={this.componentRef} />
-        <button onClick={() => exportComponentAsJPEG(this.componentRef)}>
-          Export As JPEG
-        </button>
-        <button onClick={() => exportComponentAsPNG(this.componentRef)}>
-          Export As PNG
-        </button>
-        <button onClick={() => exportComponentAsPDF(this.componentRef)}>
-          Export As PDF
-        </button>
+        <div style={{ marginTop: "47px" }}>
+          <button className="btn-export" onClick={() => exportComponentAsJPEG(this.componentRef)}>
+            Export As JPEG
+          </button>
+          <button className="btn-export" onClick={() => exportComponentAsPNG(this.componentRef)}>
+            Export As PNG
+          </button>
+          <button className="btn-export" onClick={() => exportComponentAsPDF(this.componentRef)}>
+            Export As PDF
+          </button>
+        </div>
       </React.Fragment>
     );
   }
 }
-
-
+/**
+ * 
+ * @returns 
+ * State variable:
+ *     selfieimage:It is stored image file paths for selected file from SelfieModal
+ *     selectedSelfie: This is selected selfie file path
+ *     backgroundimage: This is selected background image file path
+ *     selectedFrame  : This is selected frame image file path
+ *     frameModalShow  : This is determined to show or not for frameModal.
+ *     selfieModalShow  : This is determined to show or not for selfieModal.
+ */
 const Home = () => {
   const [selfieimage, setSelfieImage] = useState([]);
-  const [selectedSelfie, setSelectedSelfie] = useState(null);
-  const [backgroundimage, setBackgroundImage] = useState({ preview: "" });
-  const [selectedFrame, setSelectedFrame] = useState(null);
+  const [selectedSelfie, setSelectedSelfie] = useState("/assets/images/default.png");
+  const [backgroundimage, setBackgroundImage] = useState({ preview: "/assets/images/default.png" });
+  const [selectedFrame, setSelectedFrame] = useState("/assets/images/default.png");
   const [frameModalShow, setFrameModalShow] = useState(false);
   const [selfieModalShow, setSelfieModalShow] = useState(false);
-  const exportRef = useRef();
 
+  //This function is when click selfie button.(It is stored selected file paths)
   const changeSelfieHandler = (e) => {
     const temp = [];
     if (e.target.files.length) {
@@ -65,9 +84,9 @@ const Home = () => {
     }
   };
 
+  //Ths function is when click background button
   const changeBackgroundHandler = (e) => {
     sessionStorage.setItem('setBgImg', URL.createObjectURL(e.target.files[0]));
-    console.log(URL.createObjectURL(e.target.files[0]));
     if (e.target.files.length) {
       setBackgroundImage({
         preview: URL.createObjectURL(e.target.files[0])
@@ -76,42 +95,27 @@ const Home = () => {
     }
   };
 
+  //This function is when click frame button
   const changeFrameHandler = (e) => {
     setFrameModalShow(true);
   }
 
+  //This function adds selected frame file path into selectedframe state variable
   const addFrame = (e) => {
     setSelectedFrame(e["item"]);
-    sessionStorage.setItem('setSelFrame', e["item"]);
   }
 
+  //This function adds selected selfie file path into selectedselfie state variable
   const addSelfie = (e) => {
     setSelectedSelfie(e["item"]);
-    sessionStorage.setItem('setSelfie', e["item"]);
   }
 
-  const exportChange = () => {
-    var exportType = document.getElementById("exportSelect").value;
-    // switch (exportType) {
-    //   case "JPG":
-    //     exportComponentAsJPEG(componentRef);
-    //     break;
-    //   case "PNG":
-    //     exportComponentAsPNG(componentRef)
-    //     break;
-    //   case "PDF":
-    //     exportComponentAsPDF(componentRef)
-    //     break;
-    //   default:
-    //     break;
-    // }
-  }
+
 
   useEffect(() => {
     if (selfieimage.length > 0) {
       if (selfieimage.length === 1) {
         setSelectedSelfie(selfieimage[0]);
-        sessionStorage.setItem('setSelfie', selfieimage[0]);
       }
       else {
         setSelfieModalShow(true);
@@ -133,10 +137,10 @@ const Home = () => {
               selfieimage.length >= 1 ? (
                 <>
                   {
-                    selectedFrame ? (<><img src={selectedSelfie} alt="dummy" width="93%" height="97%" /><img className="selected-frame" src={selectedFrame} alt="dummy" width="100%" height="100%" /></>) : (<img src={selectedSelfie} alt="dummy" width="100%" height="100%" />)
+                    selectedFrame != "/assets/images/default.png" ? (<><img src={selectedSelfie} alt="dummy" width="93%" height="97%" /><img className="selected-frame" src={selectedFrame} alt="dummy" width="100%" height="100%" /></>) : (<img src={selectedSelfie} alt="dummy" width="100%" height="100%" />)
                   }
                 </>
-              ) : (<></>)
+              ) : (<img src={selectedSelfie} alt="dummy" width="100%" height="100%" />)
             }
           </div>
           <p>Selfie image </p>
@@ -169,11 +173,12 @@ const Home = () => {
         </div>
         <div className="col-sm-4 col-12 combined-img">
           <div className="image-load" id="mergeImage">
-            <MyComponent bgimg={backgroundimage.preview} selframe={selectedFrame} selfie={selectedSelfie} />
+            <ExportComponent bgimg={backgroundimage.preview} selframe={selectedFrame} selfie={selectedSelfie} />
           </div>
           <p>Merge Image</p>
         </div>
       </div>
+      <div><img className="social" src="assets/images/social.png" alt="dummy" /></div>
     </div >
   )
 }

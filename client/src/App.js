@@ -6,9 +6,11 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
-      <Routes location={location}>
-        <Route path="/" element={<Home />}></Route>
-      </Routes>
+      <div className="Main">
+        <Routes location={location}>
+          <Route path="/" element={<Home />}></Route>
+        </Routes>
+      </div>
     </div>
   );
 }

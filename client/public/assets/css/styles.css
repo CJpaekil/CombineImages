@@ -26,6 +26,19 @@
     display: flex;
 }
 
+.social {
+    position: absolute;
+    right: 0;
+    bottom: -13vh;
+    width: 250px;
+    height: 65px;
+}
+
+.btn-export {
+    margin: 5px;
+    border: none;
+}
+
 @media (max-width:568px) {
     .image-load {
         /* opacity: 0.3; */
@@ -41,5 +54,14 @@
 
     .btn-files {
         margin-bottom: 20px;
+    }
+
+    .social {
+        display: none;
+    }
+
+    .btn-export {
+        margin: 15px 5px;
+        border: none;
     }
 }
