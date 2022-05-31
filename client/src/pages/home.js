@@ -84,6 +84,11 @@ const Home = () => {
     canvasToImage('myCanvas');
   }
 
+  const exportChange = () => {
+    var exportType = document.getElementById("exportSelect").value;
+    alert(exportType);
+  }
+
   useEffect(() => {
 
     if (selfieimage.length > 0) {
@@ -144,7 +149,14 @@ const Home = () => {
           <div className="image-load" id="mergeImage">
             <ComponentToPrint ref={componentRef} />
           </div>
-          <div className="d-flex"><button onClick={() => mergeTotalImages()}>Export</button></div>
+          <div className="d-flex">
+            <select defaultValue={'DEFAULT'} id="exportSelect" onChange={exportChange}>
+              <option value="DEFAULT" disabled>Export</option>
+              <option value="Jpeg">Export As JPEG</option>
+              <option value="Png">Export As PNG</option>
+              <option value="Pdf">Export As PDF</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
