@@ -86,7 +86,6 @@ const Home = () => {
 
   //Ths function is when click background button
   const changeBackgroundHandler = (e) => {
-    sessionStorage.setItem('setBgImg', URL.createObjectURL(e.target.files[0]));
     if (e.target.files.length) {
       setBackgroundImage({
         preview: URL.createObjectURL(e.target.files[0])
@@ -123,10 +122,6 @@ const Home = () => {
     }
 
   }, [selfieimage])
-
-  useEffect(() => {
-    sessionStorage.clear();
-  }, [])
 
   return (
     <div className="container">
