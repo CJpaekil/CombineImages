@@ -1,11 +1,45 @@
 .image-load {
     background-color: white;
     position: relative;
-    height: 250px;
+    height: 40vh;
+    /* opacity: 0.3; */
 }
 
 .selected-frame {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-files {
+    /* background: #9C26B1; */
+    border: none;
+}
+
+.single-line {
+    display: flex;
+}
+
+@media (max-width:568px) {
+    .image-load {
+        /* opacity: 0.3; */
+        width: 100%;
+        background-color: white;
+        position: relative;
+        height: 55vh;
+    }
+
+    .single-line {
+        display: block;
+    }
+
+    .btn-files {
+        margin-bottom: 20px;
+    }
 }

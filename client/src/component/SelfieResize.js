@@ -44,5 +44,5 @@ class SelfieResize extends React.Component {
     }
 }
 
-render(<SelfieResize />, document.getElementById("root"));
+// render(<SelfieResize />, document.getElementById("root"));
 export default SelfieResize;

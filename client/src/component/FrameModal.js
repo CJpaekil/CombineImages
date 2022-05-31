@@ -19,7 +19,7 @@ const FrameModal = ({ open, onClose, selectedFrame }) => {
                 <div className="row">
                     {
                         framepaths.map((item, index) => (
-                            <img className="col-sm-4 col-12" src={item} key={index} onClick={() => selectFrame({ item })} alt="" width="100%" height="auto" />
+                            <img className="col-sm-4 col-12" src={item} key={index} style={{ marginBottom: "10px" }} onClick={() => selectFrame({ item })} alt="" width="100%" height="auto" />
                         ))
                     }
                 </div>

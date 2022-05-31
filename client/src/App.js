@@ -6,11 +6,9 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
-      <div style={{ backgroundColor: "wheat", height: "100vh", padding: "30px" }}>
-        <Routes location={location}>
-          <Route path="/" element={<Home />}></Route>
-        </Routes>
-      </div>
+      <Routes location={location}>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
     </div>
   );
 }

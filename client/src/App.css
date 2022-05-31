@@ -3,6 +3,11 @@
 
 .App {
   text-align: center;
+  height: 100vh;
+  padding: 70px 30px;
+  background: linear-gradient(#e66465, #9198e5);
+  display: flex;
+  align-items: center;
 }
 
 .App-logo {
@@ -13,6 +18,17 @@
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@media (max-width:568px) {
+  .App {
+    text-align: center;
+    height: 100%;
+    padding: 70px 10px;
+    background: linear-gradient(#e66465, #9198e5);
+    display: flex;
+    align-items: center;
   }
 }
 
